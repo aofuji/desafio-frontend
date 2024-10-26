@@ -1,0 +1,14 @@
+<div class="sidebar-logo">
+  <a href="https://ng.ant.design/" target="_blank">
+    <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+    <h1>Desafio FrontEnd</h1>
+  </a>
+</div>
+<ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+  @for (item of menus; track item.name) {
+    <li nz-menu-item>
+      <span nz-icon nzType={{item.icon}}></span>
+      <span>{{item.name}}</span>
+    </li>
+  }
+</ul>
