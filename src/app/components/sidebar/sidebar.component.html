@@ -6,9 +6,9 @@
 </div>
 <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
   @for (item of menus; track item.name) {
-    <li nz-menu-item>
+    <li nz-menu-item [routerLink]="item.link">
       <span nz-icon nzType={{item.icon}}></span>
-      <span>{{item.name}}</span>
+      <span >{{item.name}}</span>
     </li>
   }
 </ul>

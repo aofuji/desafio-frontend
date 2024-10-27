@@ -5,11 +5,12 @@ import { SidebarService } from '../../services/sidebar.service';
 import { Subscription } from 'rxjs';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { IMenus } from '../../interface/Menu';
+import { RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [NzMenuModule, NzLayoutModule, NzIconModule],
+  imports: [NzMenuModule, NzLayoutModule, NzIconModule,RouterOutlet, RouterModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
 })
@@ -20,9 +21,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
 
   menus: Array<IMenus> = [
-    { name: 'Home', link: '', icon: 'home' },
-    { name: 'Formulario', link: '', icon: 'file' },
-    { name: 'Listagem', link: '', icon: 'unordered-list' },
+    { name: 'Home', link: 'home', icon: 'home' },
+    { name: 'Formulario', link: 'register', icon: 'file' },
+    { name: 'Listagem', link: 'list', icon: 'unordered-list' },
   ];
 
   ngOnInit(): void {
