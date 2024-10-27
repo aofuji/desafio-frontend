@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   menus: Array<IMenus> = [
     { name: 'Home', link: 'home', icon: 'home' },
     { name: 'Formulario', link: 'register', icon: 'file' },
-    { name: 'Listagem', link: 'list', icon: 'unordered-list' },
+    { name: 'Listagem', link: 'registers', icon: 'unordered-list' },
   ];
 
   ngOnInit(): void {
