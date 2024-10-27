@@ -1,12 +1,73 @@
-import { Component } from '@angular/core';
-
+// Modules NG-ZORRO
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+// Core
+import { Component, OnInit } from '@angular/core';
+import {
+  FormGroup,
+  NonNullableFormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+// Shared Components
+import { BaseComponent } from '../base/base.component';
+// Enum
+import { Categories } from '../../../enum/category';
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [],
+  imports: [
+    NzFormModule,
+    NzInputModule,
+    NzButtonModule,
+    ReactiveFormsModule,
+    NzSelectModule,
+    NzCheckboxModule,
+  ],
   templateUrl: './form.component.html',
-  styleUrl: './form.component.scss'
+  styleUrl: './form.component.scss',
 })
-export class FormComponent {
+export class FormComponent extends BaseComponent implements OnInit {
+  form: FormGroup = this.fb.group({
+    name: [null, [Validators.required, Validators.maxLength(70)]],
+    category: [null, [Validators.required]],
+    amount: [null],
+    price: [null],
+    active: [null],
+  });
 
+  categories: Array<string> = [...Object.values(Categories)];
+
+  changedFields: Array<string> = ['amount', 'price'];
+
+  enabledIcon: boolean = false;
+
+  constructor(private fb: NonNullableFormBuilder) {
+    super();
+  }
+
+  ngOnInit(): void {
+    this.selectChangeField();
+  }
+
+  onSubmit(): void {
+    if (this.validateForm(this.form)) {
+      console.log(this.form.value);
+    }
+  }
+
+  selectChangeField(): void {
+    this.form.valueChanges.subscribe((field) => {
+      if (field?.active) {
+        this.setFieldRequired(this.form, this.changedFields);
+        this.enabledIcon = true;
+      } else {
+        this.removeFieldRequired(this.form, this.changedFields);
+        this.enabledIcon = false;
+      }
+    });
+  }
 }

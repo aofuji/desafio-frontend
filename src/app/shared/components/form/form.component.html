@@ -1,1 +1,61 @@
-<p>form works!</p>
+<form nz-form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <nz-form-item>
+    <nz-form-label nzRequired>Nome</nz-form-label>
+    <nz-form-control [nzErrorTip]="messageError(form,'name')">
+      <input
+        type="text"
+        nz-input
+        formControlName="name"
+        placeholder="Nome do Item"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzRequired>Categoria</nz-form-label>
+    <nz-form-control [nzErrorTip]="messageError(form,'category')">
+      <nz-select
+        id="category"
+        formControlName="category"
+        nzPlaceHolder="Selecione categoria"
+      >
+        @for (item of categories; track item) {
+        <nz-option nzValue="{{ item }}" nzLabel="{{ item }}"></nz-option>
+        }
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzRequired]="enabledIcon">Quantidade</nz-form-label>
+    <nz-form-control [nzErrorTip]="messageError(form,'amount')">
+      <input
+        type="number"
+        nz-input
+        formControlName="amount"
+        placeholder="Quantidade"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzRequired]="enabledIcon">Preço</nz-form-label>
+    <nz-form-control [nzErrorTip]="messageError(form,'price')">
+      <input
+        type="number"
+        nz-input
+        formControlName="price"
+        placeholder="Preço"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <label nz-checkbox formControlName="active">
+      <span>Ativo</span>
+    </label>
+  </nz-form-item>
+  <button nz-button class="button-cancel" [nzType]="'default'">Cancelar</button>
+  <button nz-button class="button-register" [nzType]="'primary'">Salvar</button>
+
+</form>
