@@ -45,3 +45,11 @@ ng-zorro-antd 17.4.1
 ### Component Compartilhado
   Criado component `FormComponent` e `listComponent` que são os components de formulario e listagem, podendo ser reutilizado em outros components <br>
   Path: `src/app/shared/components`
+
+### Enum
+  Criado a pasta `Enums`<br>
+  Path: `src/app/enum`
+
+### Interfaces
+  Criado a pasta `interfaces`<br>
+  Path: `src/app/interface`  
