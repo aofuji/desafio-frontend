@@ -56,7 +56,7 @@ export class FormComponent extends BaseComponent implements OnInit {
 
   descriptionId: string = 'id';
 
-  paramsID!:string;
+  paramsID!: string;
 
   isUpdate: boolean = false;
 
@@ -79,8 +79,7 @@ export class FormComponent extends BaseComponent implements OnInit {
     if (this.validateForm(this.form)) {
       // Cadastra produto caso a rota for diferente ira atualizar o produto conforme comparacao do ID
       if (!this.isUpdate) {
-        this.registerService.create(this.form.value).subscribe(() => {
-        });
+        this.registerService.create(this.form.value).subscribe(() => {});
       } else {
         this.registerService.update(this.paramsID, this.form.value).subscribe();
       }
@@ -115,8 +114,7 @@ export class FormComponent extends BaseComponent implements OnInit {
     });
   }
 
-  redirecList():void {
+  redirecList(): void {
     this.routes.navigate(['registers']);
   }
-
 }
