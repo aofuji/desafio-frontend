@@ -86,21 +86,27 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
       if (!this.isUpdate) {
         this.subscription = this.registerService
           .create(this.form.value)
-          .subscribe(() => {
-            this.createMessage('success')
-          },(err) => {
-            console.error(err)
-            this.createMessage('error')
-          });
+          .subscribe(
+            () => {
+              this.createMessage('success');
+            },
+            (err) => {
+              console.error(err);
+              this.createMessage('error');
+            }
+          );
       } else {
         this.subscription = this.registerService
           .update(this.paramsID, this.form.value)
-          .subscribe(() => {
-            this.createMessage('success')
-          },(err) => {
-            console.error(err)
-            this.createMessage('error')
-          });
+          .subscribe(
+            () => {
+              this.createMessage('success');
+            },
+            (err) => {
+              console.error(err);
+              this.createMessage('error');
+            }
+          );
       }
       // Redireciona para tela de listagem
       this.routes.navigate(['registers']);
@@ -109,7 +115,7 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   selectChangeField(): void {
     this.form.valueChanges.subscribe((field) => {
-      this.setFieldAndRemove(field)
+      this.setFieldAndRemove(field);
     });
   }
 
@@ -118,22 +124,25 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
       if (res[this.descriptionId]) {
         this.isUpdate = true;
         this.paramsID = res[this.descriptionId];
-       this.subscription = this.registerService
+        this.subscription = this.registerService
           .getId(res[this.descriptionId])
-          .subscribe((res) => {
-            if (res) {
-              this.form.patchValue(res);
-              this.setFieldAndRemove(res)
+          .subscribe(
+            (res) => {
+              if (res) {
+                this.form.patchValue(res);
+                this.setFieldAndRemove(res);
+              }
+            },
+            (err) => {
+              console.error(err);
+              this.createMessage('error');
             }
-          },(err) => {
-            console.error(err)
-            this.createMessage('error')
-          });
+          );
       }
     });
   }
 
-  private setFieldAndRemove(field:{active?:boolean}):void {
+  private setFieldAndRemove(field: { active?: boolean }): void {
     if (field?.active) {
       this.setFieldRequired(this.form, this.changedFields);
       this.enabledIcon = true;
