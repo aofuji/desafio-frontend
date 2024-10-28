@@ -42,7 +42,7 @@ import { Subscription } from 'rxjs';
 export class ListComponent implements OnInit, OnDestroy {
   public listData: Array<IRegister> = [];
 
-  subscription!: Subscription;
+  private subscription!: Subscription;
 
   constructor(
     private registerService: RegisterService,
@@ -70,6 +70,6 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 }

@@ -61,7 +61,7 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   isUpdate: boolean = false;
 
-  subscription!: Subscription;
+  private subscription!: Subscription;
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -84,7 +84,7 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
       if (!this.isUpdate) {
         this.subscription = this.registerService
           .create(this.form.value)
-          .subscribe(() => {});
+          .subscribe();
       } else {
         this.subscription = this.registerService
           .update(this.paramsID, this.form.value)
@@ -97,13 +97,7 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   selectChangeField(): void {
     this.form.valueChanges.subscribe((field) => {
-      if (field?.active) {
-        this.setFieldRequired(this.form, this.changedFields);
-        this.enabledIcon = true;
-      } else {
-        this.removeFieldRequired(this.form, this.changedFields);
-        this.enabledIcon = false;
-      }
+      this.setFieldAndRemove(field)
     });
   }
 
@@ -112,15 +106,26 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
       if (res[this.descriptionId]) {
         this.isUpdate = true;
         this.paramsID = res[this.descriptionId];
-        this.subscription = this.registerService
+       this.subscription = this.registerService
           .getId(res[this.descriptionId])
           .subscribe((res) => {
             if (res) {
               this.form.patchValue(res);
+              this.setFieldAndRemove(res)
             }
           });
       }
     });
+  }
+
+  private setFieldAndRemove(field:{active?:boolean}):void {
+    if (field?.active) {
+      this.setFieldRequired(this.form, this.changedFields);
+      this.enabledIcon = true;
+    } else {
+      this.removeFieldRequired(this.form, this.changedFields);
+      this.enabledIcon = false;
+    }
   }
 
   redirecList(): void {
@@ -128,6 +133,6 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 }
