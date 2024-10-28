@@ -14,7 +14,7 @@ export class RegisterService extends BaseSerice {
   }
 
   create(data: IRegister): Observable<Array<null>> {
-    this.data = this.hasJsonValue()
+    this.data = this.hasJsonValue();
 
     const newValue: IRegister = {
       ...data,
@@ -29,19 +29,23 @@ export class RegisterService extends BaseSerice {
     return of([]);
   }
 
-  getId(): Observable<any> {
+  getId(id:string): Observable<any> {
     return of();
   }
 
-  getAll(): Observable<any> {
+  getAll(): Observable<Array<IRegister>> {
     return of(this.hasJsonValue());
+  }
+
+  delete(id: string): Observable<any> {
+    return of();
   }
 
   private createLocalstorage(data: Array<IRegister>): void {
     localStorage.setItem('registers', JSON.stringify(data));
   }
 
-  private hasJsonValue():Array<IRegister> {
+  private hasJsonValue(): Array<IRegister> {
     const stringValue = localStorage.getItem('registers');
 
     return stringValue === null ? [] : JSON.parse(stringValue);

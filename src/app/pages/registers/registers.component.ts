@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ListComponent } from '../../shared/components/list/list.component';
 
 @Component({
   selector: 'app-registers',
   standalone: true,
-  imports: [],
+  imports: [ListComponent],
   templateUrl: './registers.component.html',
   styleUrl: './registers.component.scss'
 })

@@ -1,1 +1,42 @@
-<p>list works!</p>
+<div class="buttons-table">
+  <button nz-button (click)="redirectRegister()">Cadastrar</button>
+</div>
+
+<nz-table #basicTable [nzData]="this.listData">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Categoria</th>
+      <th>Quantidade</th>
+      <th>Preço</th>
+      <th>Ativo</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of basicTable.data; track data) {
+    <tr>
+      <td>{{ data.name }}</td>
+      <td>{{ data.category }}</td>
+      <td>{{ data.amount }}</td>
+      <td>{{ data.price | currency}}</td>
+
+      @if (data.active) {
+        <td>
+          <span nz-icon nzType="check" nzTheme="outline"></span>
+        </td>
+      } @else {
+        <td>
+          <span nz-icon nzType="stop" nzTheme="outline"></span>
+        </td>
+      }
+
+      <td>
+        <a>Editar</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a>Delete</a>
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>
