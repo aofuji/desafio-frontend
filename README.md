@@ -1,6 +1,6 @@
 # Pre requisitos
 
-[Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+[Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.<br>
 Nodejs v20.11.0 <br>
 Npm v10.2.4 <br>
 Nvm 0.39.1
