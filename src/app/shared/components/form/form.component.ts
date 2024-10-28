@@ -6,7 +6,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 // Core
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormGroup,
   NonNullableFormBuilder,
@@ -22,6 +22,7 @@ import { CurrencyDirective } from '../../directives/currency.directive';
 import { OnlyNumberDirective } from '../../directives/only-number.directive';
 import { RegisterService } from '../../services/register.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -39,7 +40,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
 })
-export class FormComponent extends BaseComponent implements OnInit {
+export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
   form: FormGroup = this.fb.group({
     name: [null, [Validators.required, Validators.maxLength(70)]],
     category: [null, [Validators.required]],
@@ -60,6 +61,8 @@ export class FormComponent extends BaseComponent implements OnInit {
 
   isUpdate: boolean = false;
 
+  subscription!: Subscription;
+
   constructor(
     private fb: NonNullableFormBuilder,
     private registerService: RegisterService,
@@ -79,9 +82,13 @@ export class FormComponent extends BaseComponent implements OnInit {
     if (this.validateForm(this.form)) {
       // Cadastra produto caso a rota for diferente ira atualizar o produto conforme comparacao do ID
       if (!this.isUpdate) {
-        this.registerService.create(this.form.value).subscribe(() => {});
+        this.subscription = this.registerService
+          .create(this.form.value)
+          .subscribe(() => {});
       } else {
-        this.registerService.update(this.paramsID, this.form.value).subscribe();
+        this.subscription = this.registerService
+          .update(this.paramsID, this.form.value)
+          .subscribe();
       }
       // Redireciona para tela de listagem
       this.routes.navigate(['registers']);
@@ -105,16 +112,22 @@ export class FormComponent extends BaseComponent implements OnInit {
       if (res[this.descriptionId]) {
         this.isUpdate = true;
         this.paramsID = res[this.descriptionId];
-        this.registerService.getId(res[this.descriptionId]).subscribe((res) => {
-          if (res) {
-            this.form.patchValue(res);
-          }
-        });
+        this.subscription = this.registerService
+          .getId(res[this.descriptionId])
+          .subscribe((res) => {
+            if (res) {
+              this.form.patchValue(res);
+            }
+          });
       }
     });
   }
 
   redirecList(): void {
     this.routes.navigate(['registers']);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

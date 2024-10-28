@@ -3,6 +3,7 @@ import {
   Component,
   DEFAULT_CURRENCY_CODE,
   LOCALE_ID,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,6 +16,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { RegisterService } from '../../services/register.service';
 import { IRegister } from '../../../interface/Register';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -26,7 +28,7 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
     CommonModule,
     NzButtonModule,
     RouterOutlet,
-    RouterModule
+    RouterModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },
@@ -35,8 +37,10 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   public listData: Array<IRegister> = [];
+
+  subscription!: Subscription;
 
   constructor(
     private registerService: RegisterService,
@@ -44,12 +48,26 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.registerService.getAll().subscribe((res) => {
-      this.listData = res;
-    });
+    this.getAll();
   }
 
   redirectRegister(): void {
     this.routes.navigate(['register']);
+  }
+
+  delete(id: string | undefined): void {
+    this.subscription = this.registerService.delete(id).subscribe(() => {
+      this.getAll();
+    });
+  }
+
+  getAll(): void {
+    this.subscription = this.registerService.getAll().subscribe((res) => {
+      this.listData = res;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

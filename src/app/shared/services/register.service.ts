@@ -57,7 +57,7 @@ export class RegisterService extends BaseSerice {
       return val;
     });
 
-    this.createLocalstorage(newList)
+    this.createLocalstorage(newList);
 
     return of(null);
   }
@@ -66,8 +66,16 @@ export class RegisterService extends BaseSerice {
     return of(this.hasJsonValue());
   }
 
-  delete(id: string): Observable<any> {
-    return of();
+  delete(id: string | undefined): Observable<any> {
+    const list = this.hasJsonValue();
+
+    const newList = list.filter((val) => {
+      return val.uuid !== id;
+    });
+
+    this.createLocalstorage(newList);
+
+    return of(null);
   }
 
   private createLocalstorage(data: Array<IRegister>): void {
