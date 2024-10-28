@@ -1,7 +1,7 @@
 import { Observable } from "rxjs";
 import { IRegister } from "../../interface/Register";
 
-export abstract class BaseSerice {
+export abstract class BaseService {
   public abstract getId(id:String):Observable<any>;
 
   public abstract getAll():Observable<any>;

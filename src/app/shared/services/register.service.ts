@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { IRegister } from '../../interface/Register';
-import { BaseSerice } from '../class/base-service';
+import { BaseService } from '../class/base-service';
 import { map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'any',
 })
-export class RegisterService extends BaseSerice {
+export class RegisterService extends BaseService {
   public data: Array<IRegister> = [];
 
   constructor() {
