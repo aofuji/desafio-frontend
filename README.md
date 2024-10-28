@@ -1,27 +1,80 @@
-# DesafioFrontend
+# Pre requisitos
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+[Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+Nodejs v20.11.0
 
-## Development server
+## Servidor de desenvolvimento
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Execute `ng serve` no terminal. Entre no link `http://localhost:4200/`
 
-## Code scaffolding
+## Documentação
+### Componentes compartilhados, classes, diretivas
+shared
+│       ├── class
+│       │   ├── base-service.ts
+│       │   └── base.component.ts
+│       ├── components
+│       │   ├── form
+│       │   │   ├── form.component.html
+│       │   │   ├── form.component.scss
+│       │   │   ├── form.component.spec.ts
+│       │   │   └── form.component.ts
+│       │   └── list
+│       │       ├── list.component.html
+│       │       ├── list.component.scss
+│       │       ├── list.component.spec.ts
+│       │       └── list.component.ts
+│       ├── directives
+│       │   ├── currency.directive.ts
+│       │   └── only-number.directive.ts
+│       └── services
+│           ├── register.service.spec.ts
+│           ├── register.service.ts
+│           ├── sidebar.service.spec.ts
+│           └── sidebar.service.ts
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Components Layout
+main
+│   │   ├── header
+│   │   │   ├── header.component.html
+│   │   │   ├── header.component.scss
+│   │   │   ├── header.component.spec.ts
+│   │   │   └── header.component.ts
+│   │   ├── layout
+│   │   │   ├── layout.component.html
+│   │   │   ├── layout.component.scss
+│   │   │   ├── layout.component.spec.ts
+│   │   │   └── layout.component.ts
+│   │   └── sidebar
+│   │       ├── sidebar.component.html
+│   │       ├── sidebar.component.scss
+│   │       ├── sidebar.component.spec.ts
+│   │       └── sidebar.component.ts
+### Paginas
+│   ├── pages
+│   │   ├── home
+│   │   │   ├── home.component.html
+│   │   │   ├── home.component.scss
+│   │   │   ├── home.component.spec.ts
+│   │   │   ├── home.component.ts
+│   │   │   └── home.routes.ts
+│   │   ├── register
+│   │   │   ├── register.component.html
+│   │   │   ├── register.component.scss
+│   │   │   ├── register.component.spec.ts
+│   │   │   ├── register.component.ts
+│   │   │   └── register.routes.ts
+│   │   └── registers
+│   │       ├── registers.component.html
+│   │       ├── registers.component.scss
+│   │       ├── registers.component.spec.ts
+│   │       ├── registers.component.ts
+│   │       └── registers.routes.ts
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Enum e interfaces
+│   ├── enum
+│   │   └── category.ts
+│   ├── icons-provider.ts
+│   ├── interface
+│   │   ├── Menu.ts
+│   │   └── Register.ts
