@@ -36,7 +36,15 @@
           >Editar</a
         >
         <nz-divider nzType="vertical"></nz-divider>
-        <a (click)="delete(data.uuid)">Excluir</a>
+        <a
+          nz-popconfirm
+          [nzPopconfirmTitle]="'Deseja excluir esse ' + data.name + '?' "
+          nzOkText="excluir"
+          nzCancelText="cancelar"
+          (nzOnConfirm)="delete(data.uuid)"
+        >
+          Excluir
+        </a>
       </td>
     </tr>
     }

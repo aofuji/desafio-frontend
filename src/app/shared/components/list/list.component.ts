@@ -12,6 +12,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 // Services
 import { RegisterService } from '../../services/register.service';
 import { IRegister } from '../../../interface/Register';
@@ -29,6 +30,7 @@ import { Subscription } from 'rxjs';
     NzButtonModule,
     RouterOutlet,
     RouterModule,
+    NzPopconfirmModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },
