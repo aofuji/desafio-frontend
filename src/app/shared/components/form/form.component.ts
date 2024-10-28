@@ -4,6 +4,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 // Core
 import { Component, OnInit } from '@angular/core';
 import {
@@ -26,6 +27,7 @@ import { Categories } from '../../../enum/category';
     ReactiveFormsModule,
     NzSelectModule,
     NzCheckboxModule,
+    NzGridModule
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',

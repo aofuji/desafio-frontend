@@ -1,7 +1,13 @@
-<form nz-form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-  <nz-form-item>
+<form
+  [nzLayout]="'vertical'"
+  nz-form
+  class="form"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
+  <nz-form-item class="field pr-10">
     <nz-form-label nzRequired>Nome</nz-form-label>
-    <nz-form-control [nzErrorTip]="messageError(form,'name')">
+    <nz-form-control [nzErrorTip]="messageError(form, 'name')">
       <input
         type="text"
         nz-input
@@ -11,9 +17,9 @@
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
+  <nz-form-item class="field">
     <nz-form-label nzRequired>Categoria</nz-form-label>
-    <nz-form-control [nzErrorTip]="messageError(form,'category')">
+    <nz-form-control [nzErrorTip]="messageError(form, 'category')">
       <nz-select
         id="category"
         formControlName="category"
@@ -26,9 +32,9 @@
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
+  <nz-form-item class="field pr-10">
     <nz-form-label [nzRequired]="enabledIcon">Quantidade</nz-form-label>
-    <nz-form-control [nzErrorTip]="messageError(form,'amount')">
+    <nz-form-control [nzErrorTip]="messageError(form, 'amount')">
       <input
         type="number"
         nz-input
@@ -38,9 +44,9 @@
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
+  <nz-form-item class="field">
     <nz-form-label [nzRequired]="enabledIcon">Preço</nz-form-label>
-    <nz-form-control [nzErrorTip]="messageError(form,'price')">
+    <nz-form-control [nzErrorTip]="messageError(form, 'price')">
       <input
         type="number"
         nz-input
@@ -50,12 +56,18 @@
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-item>
-    <label nz-checkbox formControlName="active">
+  <nz-form-item class="w-100">
+    <label nzSpan="12" nz-checkbox formControlName="active">
       <span>Ativo</span>
     </label>
   </nz-form-item>
-  <button nz-button class="button-cancel" [nzType]="'default'">Cancelar</button>
-  <button nz-button class="button-register" [nzType]="'primary'">Salvar</button>
 
+  <div class="buttons">
+    <button nz-button class="btn button-cancel" [nzType]="'default'">
+      Cancelar
+    </button>
+    <button nz-button class="btn button-register" [nzType]="'primary'">
+      Salvar
+    </button>
+  </div>
 </form>
