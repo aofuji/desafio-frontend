@@ -8,7 +8,7 @@ Nodejs v20.11.0
 Execute `ng serve` no terminal. Entre no link `http://localhost:4200/`
 
 ## Documentação
-  Criado tela de cadastro `/register`
+  Criado tela de cadastro `/register` <br>
   Criado tela de listagem `/registers`
   
   Criado service de `create`, `read`, `update` e `delete` utilizando localStorage. <br>
