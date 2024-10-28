@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Directive, ElementRef, HostListener, Injector } from '@angular/core';
+import { Directive, ElementRef, HostListener, Injector, OnInit } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
@@ -7,7 +7,7 @@ import { NgControl } from '@angular/forms';
   standalone: true,
   providers: [CurrencyPipe],
 })
-export class CurrencyDirective {
+export class CurrencyDirective implements OnInit {
   private currency: any;
 
   private currencySymbol: string = 'BRL';
@@ -17,6 +17,13 @@ export class CurrencyDirective {
   constructor(public ngControl: NgControl, private injector: Injector) {
     this.currency = this.injector.get(CurrencyPipe);
   }
+
+  ngOnInit(): void {
+    const value = this.ngControl.value
+    const newValue = this.onHandleOnlyNumber(new String(value)) / 100;
+    this.ngControl.valueAccessor?.writeValue(this.parsedValue(newValue))
+  }
+
   @HostListener('input', ['$event.target.value'])
   onInput(value: any) {
     const newValue = this.onHandleOnlyNumber(value) / 100;
