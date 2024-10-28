@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 // Shared Components
-import { BaseComponent } from '../base/base.component';
+import { BaseComponent } from '../../class/base.component';
 // Enum
 import { Categories } from '../../../enum/category';
 // Directive

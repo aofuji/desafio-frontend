@@ -5,8 +5,7 @@ import { FormGroup, Validators } from '@angular/forms';
   selector: 'app-base',
   standalone: true,
   imports: [],
-  templateUrl: './base.component.html',
-  styleUrl: './base.component.scss',
+  template: '',
 })
 export class BaseComponent {
   public validateForm(form: FormGroup): boolean {
