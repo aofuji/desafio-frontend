@@ -23,6 +23,7 @@ import { OnlyNumberDirective } from '../../directives/only-number.directive';
 import { RegisterService } from '../../services/register.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -67,7 +68,8 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
     private fb: NonNullableFormBuilder,
     private registerService: RegisterService,
     private routes: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private message: NzMessageService
   ) {
     super();
   }
@@ -84,11 +86,21 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
       if (!this.isUpdate) {
         this.subscription = this.registerService
           .create(this.form.value)
-          .subscribe();
+          .subscribe(() => {
+            this.createMessage('success')
+          },(err) => {
+            console.error(err)
+            this.createMessage('error')
+          });
       } else {
         this.subscription = this.registerService
           .update(this.paramsID, this.form.value)
-          .subscribe();
+          .subscribe(() => {
+            this.createMessage('success')
+          },(err) => {
+            console.error(err)
+            this.createMessage('error')
+          });
       }
       // Redireciona para tela de listagem
       this.routes.navigate(['registers']);
@@ -113,6 +125,9 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
               this.form.patchValue(res);
               this.setFieldAndRemove(res)
             }
+          },(err) => {
+            console.error(err)
+            this.createMessage('error')
           });
       }
     });
@@ -134,5 +149,13 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  createMessage(type: 'success' | 'error'): void {
+    if (type === 'success') {
+      this.message.create(type, `Salvo com sucesso`);
+    } else {
+      this.message.create(type, `Houve um erro`);
+    }
   }
 }

@@ -13,6 +13,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageService } from 'ng-zorro-antd/message';
 // Services
 import { RegisterService } from '../../services/register.service';
 import { IRegister } from '../../../interface/Register';
@@ -46,7 +47,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
   constructor(
     private registerService: RegisterService,
-    private routes: Router
+    private routes: Router,
+    private message: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -58,18 +60,36 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   delete(id: string | undefined): void {
-    this.subscription = this.registerService.delete(id).subscribe(() => {
-      this.getAll();
-    });
+    this.subscription = this.registerService.delete(id).subscribe(
+      () => {
+        this.getAll();
+        this.createMessage('success');
+      },
+      (err) => {
+        console.error(err)
+        this.createMessage('error');
+      }
+    );
   }
 
   getAll(): void {
     this.subscription = this.registerService.getAll().subscribe((res) => {
       this.listData = res;
+    }, (err) => {
+      console.error(err)
+      this.createMessage('error');
     });
   }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  createMessage(type: 'success' | 'error'): void {
+    if (type === 'success') {
+      this.message.create(type, `Deletado com sucesso`);
+    } else {
+      this.message.create(type, `Houve um erro`);
+    }
   }
 }
