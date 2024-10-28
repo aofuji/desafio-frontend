@@ -10,7 +10,7 @@ Nvm 0.39.1
 Execute `ng serve` no terminal. Entre no link `http://localhost:4200/` ou `npm run start`
 
 ## Documentação
-
+Criação do projeto com a opção `Angular Standalone`
 ### Component Design Interface
 ng-zorro-antd 17.4.1
 
