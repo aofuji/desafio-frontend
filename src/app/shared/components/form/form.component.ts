@@ -64,7 +64,7 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   private subscription!: Subscription;
 
-  loading:boolean = false;
+  loading: boolean = false;
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -83,13 +83,13 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-
     if (this.validateForm(this.form)) {
-      this.loading = true
+      this.loading = true;
       // Cadastra produto caso a rota for diferente ira atualizar o produto conforme comparacao do ID
       if (!this.isUpdate) {
         this.subscription = this.registerService
-          .create(this.form.value).pipe(delay(2000))
+          .create(this.form.value)
+          .pipe(delay(2000))
           .subscribe(
             () => {
               this.loading = false;
@@ -105,7 +105,8 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
           );
       } else {
         this.subscription = this.registerService
-          .update(this.paramsID, this.form.value).pipe(delay(2000))
+          .update(this.paramsID, this.form.value)
+          .pipe(delay(2000))
           .subscribe(
             () => {
               this.loading = false;
@@ -120,7 +121,6 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
             }
           );
       }
-
     }
   }
 
