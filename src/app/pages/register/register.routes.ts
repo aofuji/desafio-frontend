@@ -3,4 +3,5 @@ import { RegisterComponent } from './register.component';
 
 export const REGISTER_ROUTES: Routes = [
   { path: '', component: RegisterComponent },
+  { path: ':id', component: RegisterComponent },
 ];

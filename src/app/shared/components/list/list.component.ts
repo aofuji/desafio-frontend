@@ -14,7 +14,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 // Services
 import { RegisterService } from '../../services/register.service';
 import { IRegister } from '../../../interface/Register';
-import { Router } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -25,6 +25,8 @@ import { Router } from '@angular/router';
     NzIconModule,
     CommonModule,
     NzButtonModule,
+    RouterOutlet,
+    RouterModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt' },

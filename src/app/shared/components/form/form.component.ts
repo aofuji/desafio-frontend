@@ -21,7 +21,7 @@ import { Categories } from '../../../enum/category';
 import { CurrencyDirective } from '../../directives/currency.directive';
 import { OnlyNumberDirective } from '../../directives/only-number.directive';
 import { RegisterService } from '../../services/register.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -54,24 +54,38 @@ export class FormComponent extends BaseComponent implements OnInit {
 
   enabledIcon: boolean = false;
 
+  descriptionId: string = 'id';
+
+  paramsID!:string;
+
+  isUpdate: boolean = false;
+
   constructor(
     private fb: NonNullableFormBuilder,
     private registerService: RegisterService,
-    private routes:Router
+    private routes: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     super();
   }
 
   ngOnInit(): void {
+    this.getId();
+
     this.selectChangeField();
   }
 
   onSubmit(): void {
     if (this.validateForm(this.form)) {
-      this.registerService.create(this.form.value)
-      .subscribe(() => {
-        this.routes.navigate(['registers'])
-      });
+      // Cadastra produto caso a rota for diferente ira atualizar o produto conforme comparacao do ID
+      if (!this.isUpdate) {
+        this.registerService.create(this.form.value).subscribe(() => {
+        });
+      } else {
+        this.registerService.update(this.paramsID, this.form.value).subscribe();
+      }
+      // Redireciona para tela de listagem
+      this.routes.navigate(['registers']);
     }
   }
 
@@ -86,4 +100,23 @@ export class FormComponent extends BaseComponent implements OnInit {
       }
     });
   }
+
+  getId(): void {
+    this.activatedRoute.params.subscribe((res) => {
+      if (res[this.descriptionId]) {
+        this.isUpdate = true;
+        this.paramsID = res[this.descriptionId];
+        this.registerService.getId(res[this.descriptionId]).subscribe((res) => {
+          if (res) {
+            this.form.patchValue(res);
+          }
+        });
+      }
+    });
+  }
+
+  redirecList():void {
+    this.routes.navigate(['registers']);
+  }
+
 }

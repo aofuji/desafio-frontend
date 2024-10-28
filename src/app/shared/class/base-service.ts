@@ -10,5 +10,7 @@ export abstract class BaseSerice {
 
   public abstract delete(id:string):Observable<any>
 
+  public abstract update(id:string,data:IRegister) : Observable<any>
+
 
 }

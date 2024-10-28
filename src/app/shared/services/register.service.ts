@@ -29,8 +29,37 @@ export class RegisterService extends BaseSerice {
     return of([]);
   }
 
-  getId(id:string): Observable<any> {
-    return of();
+  getId(id: string): Observable<IRegister | undefined> {
+    const list = this.hasJsonValue();
+
+    const data: IRegister | undefined = list.find((val) => {
+      return val.uuid == id;
+    });
+
+    return of(data);
+  }
+
+  update(id: string, data: IRegister): Observable<null> {
+    const newValue: IRegister = {
+      ...data,
+      price: this.onHandleRemoveCharacter(data.price) / 100,
+      uuid: id,
+    };
+
+    const list = this.hasJsonValue();
+
+    const newList = list.map((val) => {
+      if (val.uuid === id) {
+        return {
+          ...newValue,
+        };
+      }
+      return val;
+    });
+
+    this.createLocalstorage(newList)
+
+    return of(null);
   }
 
   getAll(): Observable<Array<IRegister>> {

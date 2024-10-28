@@ -19,22 +19,24 @@
       <td>{{ data.name }}</td>
       <td>{{ data.category }}</td>
       <td>{{ data.amount }}</td>
-      <td>{{ data.price | currency}}</td>
+      <td>{{ data.price | currency }}</td>
 
       @if (data.active) {
-        <td>
-          <span nz-icon nzType="check" nzTheme="outline"></span>
-        </td>
+      <td>
+        <span nz-icon nzType="check" nzTheme="outline"></span>
+      </td>
       } @else {
-        <td>
-          <span nz-icon nzType="stop" nzTheme="outline"></span>
-        </td>
+      <td>
+        <span nz-icon nzType="stop" nzTheme="outline"></span>
+      </td>
       }
 
       <td>
-        <a>Editar</a>
+        <a href="javascript:void()" [routerLink]="['/register', data.uuid]"
+          >Editar</a
+        >
         <nz-divider nzType="vertical"></nz-divider>
-        <a>Delete</a>
+        <a>Deletar</a>
       </td>
     </tr>
     }
