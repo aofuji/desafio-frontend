@@ -2,7 +2,7 @@
   <button nz-button (click)="redirectRegister()">Cadastrar</button>
 </div>
 
-<nz-table #basicTable [nzData]="this.listData">
+<nz-table #basicTable [nzFrontPagination]="false" [nzData]="this.listData">
   <thead>
     <tr>
       <th>Name</th>
