@@ -43,5 +43,5 @@ ng-zorro-antd 17.4.1
   Path: `src/app/main`
 
 ### Component Compartilhado
-  Criado component `FormComponent` e `listComponent` podendo ser reutilizado em oturo components <br>
+  Criado component `FormComponent` e `listComponent` que são os components de formulario e listagem, podendo ser reutilizado em outros components <br>
   Path: `src/app/shared/components`
