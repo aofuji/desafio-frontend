@@ -19,7 +19,7 @@ ng-zorro-antd 17.4.1
   Criado tela de listagem `/registers` <br>
   Path: `src/app/pages`
 ### Services  
-  Criado service de `create`, `read`, `update` e `delete` utilizando localStorage. <br>
+  Criado service e os metodos `create`, `read`, `update` e `delete` e sendo utilizado localStorage. <br>
   Path `src/app/shared/services/register.service.ts`
   
   Criado service manipulacao das lib Rxjs no sideBar <br>
