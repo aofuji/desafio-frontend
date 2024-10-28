@@ -36,7 +36,8 @@
     <nz-form-label [nzRequired]="enabledIcon">Quantidade</nz-form-label>
     <nz-form-control [nzErrorTip]="messageError(form, 'amount')">
       <input
-        type="number"
+      onlyNumber
+        type="text"
         nz-input
         formControlName="amount"
         placeholder="Quantidade"
@@ -48,7 +49,8 @@
     <nz-form-label [nzRequired]="enabledIcon">Preço</nz-form-label>
     <nz-form-control [nzErrorTip]="messageError(form, 'price')">
       <input
-        type="number"
+        currencyDirective
+        type="text"
         nz-input
         formControlName="price"
         placeholder="Preço"

@@ -17,6 +17,9 @@ import {
 import { BaseComponent } from '../base/base.component';
 // Enum
 import { Categories } from '../../../enum/category';
+// Directive
+import { CurrencyDirective } from '../../directives/currency.directive';
+import { OnlyNumberDirective } from '../../directives/only-number.directive';
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -27,7 +30,9 @@ import { Categories } from '../../../enum/category';
     ReactiveFormsModule,
     NzSelectModule,
     NzCheckboxModule,
-    NzGridModule
+    NzGridModule,
+    CurrencyDirective,
+    OnlyNumberDirective
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
