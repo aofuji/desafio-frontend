@@ -22,7 +22,7 @@ import { CurrencyDirective } from '../../directives/currency.directive';
 import { OnlyNumberDirective } from '../../directives/only-number.directive';
 import { RegisterService } from '../../services/register.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { delay, Subscription } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 @Component({
   selector: 'app-form',
@@ -64,6 +64,8 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   private subscription!: Subscription;
 
+  loading:boolean = false;
+
   constructor(
     private fb: NonNullableFormBuilder,
     private registerService: RegisterService,
@@ -81,35 +83,44 @@ export class FormComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+
     if (this.validateForm(this.form)) {
+      this.loading = true
       // Cadastra produto caso a rota for diferente ira atualizar o produto conforme comparacao do ID
       if (!this.isUpdate) {
         this.subscription = this.registerService
-          .create(this.form.value)
+          .create(this.form.value).pipe(delay(2000))
           .subscribe(
             () => {
+              this.loading = false;
               this.createMessage('success');
+              // Redireciona para tela de listagem
+              this.routes.navigate(['registers']);
             },
             (err) => {
               console.error(err);
               this.createMessage('error');
+              this.loading = false;
             }
           );
       } else {
         this.subscription = this.registerService
-          .update(this.paramsID, this.form.value)
+          .update(this.paramsID, this.form.value).pipe(delay(2000))
           .subscribe(
             () => {
+              this.loading = false;
               this.createMessage('success');
+              // Redireciona para tela de listagem
+              this.routes.navigate(['registers']);
             },
             (err) => {
+              this.loading = false;
               console.error(err);
               this.createMessage('error');
             }
           );
       }
-      // Redireciona para tela de listagem
-      this.routes.navigate(['registers']);
+
     }
   }
 
