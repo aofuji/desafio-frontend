@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IRegister } from '../../interface/Register';
 import { BaseSerice } from '../class/base-service';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'any',
@@ -26,7 +26,11 @@ export class RegisterService extends BaseSerice {
 
     this.createLocalstorage(this.data);
 
-    return of([]);
+    return of([]).pipe(map((res) => {
+      // Mock gerando erro no cadastro do produto
+      // throw new Error('Cadastro gerando erro');
+      return res
+    }));
   }
 
   getId(id: string): Observable<IRegister | undefined> {
