@@ -11,13 +11,13 @@ Execute `ng serve` no terminal. Entre no link `http://localhost:4200/`
   Criado tela de cadastro `/register`
   Criado tela de listagem `/registers`
   
-  Criado service de `create`, `read`, `update` e `delete` utilizando localStorage.&nbsp;
+  Criado service de `create`, `read`, `update` e `delete` utilizando localStorage. <br>
   Path `src/app/shared/services/register.service.ts`
   
-  Criado service manipulacao das lib Rxjs no sideBar &nbsp;
+  Criado service manipulacao das lib Rxjs no sideBar <br>
   Path `src/app/shared/services/sidebar.service.ts`
 
-  Criado components `BaseComponent` sendo herdados nos components de formularios, facilitando nas validações e metodos. &nbsp;
+  Criado components `BaseComponent` sendo herdados nos components de formularios, facilitando nas validações e metodos. <br>
   Path `src/app/shared/class/base.component.ts`
 
 
