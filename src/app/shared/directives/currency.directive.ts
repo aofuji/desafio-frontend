@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Directive, HostListener, Injector } from '@angular/core';
+import { Directive, ElementRef, HostListener, Injector } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
@@ -20,19 +20,12 @@ export class CurrencyDirective {
   @HostListener('input', ['$event.target.value'])
   onInput(value: any) {
     const newValue = this.onHandleOnlyNumber(value) / 100;
-
     this.ngControl.valueAccessor?.writeValue(this.parsedValue(newValue));
   }
 
   private parsedValue(value: any): string {
     const { currencySymbol, locale } = this;
-    return this.currency.transform(
-      value,
-      currencySymbol,
-      'symbol',
-      '',
-      locale
-    );
+    return this.currency.transform(value, currencySymbol, 'symbol', '', locale);
   }
 
   private onHandleOnlyNumber(value: any): number {

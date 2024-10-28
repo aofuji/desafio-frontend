@@ -7,15 +7,26 @@ import { Observable, of } from 'rxjs';
   providedIn: 'any',
 })
 export class RegisterService extends BaseSerice {
+  public data: Array<IRegister> = [];
 
   constructor() {
-    super()
+    super();
   }
 
-  create(data: IRegister): Observable<any> {
-    console.log(data);
+  create(data: IRegister): Observable<Array<null>> {
+    this.data = this.hasJsonValue()
 
-    return of();
+    const newValue: IRegister = {
+      ...data,
+      uuid: self.crypto.randomUUID(),
+      price: this.onHandleRemoveCharacter(data.price) / 100,
+    };
+
+    this.data.push(newValue);
+
+    this.createLocalstorage(this.data);
+
+    return of([]);
   }
 
   getId(): Observable<any> {
@@ -23,6 +34,21 @@ export class RegisterService extends BaseSerice {
   }
 
   getAll(): Observable<any> {
-    return of();
+    return of(this.hasJsonValue());
+  }
+
+  private createLocalstorage(data: Array<IRegister>): void {
+    localStorage.setItem('registers', JSON.stringify(data));
+  }
+
+  private hasJsonValue():Array<IRegister> {
+    const stringValue = localStorage.getItem('registers');
+
+    return stringValue === null ? [] : JSON.parse(stringValue);
+  }
+
+  private onHandleRemoveCharacter(value: number): number {
+    let regex = /[^0-9]*/g;
+    return Number(new String(value).replace(regex, ''));
   }
 }

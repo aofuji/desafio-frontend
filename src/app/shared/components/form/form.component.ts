@@ -20,6 +20,8 @@ import { Categories } from '../../../enum/category';
 // Directive
 import { CurrencyDirective } from '../../directives/currency.directive';
 import { OnlyNumberDirective } from '../../directives/only-number.directive';
+import { RegisterService } from '../../services/register.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -32,7 +34,7 @@ import { OnlyNumberDirective } from '../../directives/only-number.directive';
     NzCheckboxModule,
     NzGridModule,
     CurrencyDirective,
-    OnlyNumberDirective
+    OnlyNumberDirective,
   ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss',
@@ -43,7 +45,7 @@ export class FormComponent extends BaseComponent implements OnInit {
     category: [null, [Validators.required]],
     amount: [null],
     price: [null],
-    active: [null],
+    active: [false],
   });
 
   categories: Array<string> = [...Object.values(Categories)];
@@ -52,7 +54,11 @@ export class FormComponent extends BaseComponent implements OnInit {
 
   enabledIcon: boolean = false;
 
-  constructor(private fb: NonNullableFormBuilder) {
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private registerService: RegisterService,
+    private routes:Router
+  ) {
     super();
   }
 
@@ -62,7 +68,10 @@ export class FormComponent extends BaseComponent implements OnInit {
 
   onSubmit(): void {
     if (this.validateForm(this.form)) {
-      console.log(this.form.value);
+      this.registerService.create(this.form.value)
+      .subscribe(() => {
+        this.routes.navigate(['registers'])
+      });
     }
   }
 
